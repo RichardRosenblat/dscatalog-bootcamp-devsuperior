@@ -17,8 +17,6 @@ const ProductDetails = () => {
     const [product, setProduct] = useState<Product>();
     const [isLoading,setIsLoading] = useState(false);
 
-    console.log(isLoading);
-
     useEffect(() => {
        setIsLoading(true)
        makeRequest({url: `/products/${productId}`})

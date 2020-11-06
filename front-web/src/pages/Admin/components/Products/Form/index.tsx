@@ -1,3 +1,4 @@
+import { isAllowedByRole } from "core/utils/auth";
 import { makePrivateRequest } from "core/utils/request";
 import React, { useState } from "react";
 import BaseForm from "../../BaseForm";
@@ -73,16 +74,14 @@ const Form = () =>{
                         />
                     </div>
                     <div className="col-6">
-                        <textarea 
+                       <textarea 
                             name="description" 
                             value={formData.description}
                             onChange={handleOnChange}
                             className="form-control"
                             cols={30} 
                             rows={10}
-                        >
-
-                        </textarea>
+                        />
                     </div>
 
                 </div>

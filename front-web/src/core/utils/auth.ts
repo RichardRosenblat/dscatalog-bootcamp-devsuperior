@@ -26,14 +26,15 @@ export const saveSessionData = (LoginResponse: LoginResponse) => {
 export const getSessionData = () => {
     const sessionData = localStorage.getItem('auth-data') ?? '{}';
     const parsedSessionData = JSON.parse(sessionData);
-
+    
     return parsedSessionData as LoginResponse;
 }
 
 export const getAccessTokenDecoded = () => {
     const sessionData = getSessionData();
-
+  
     const tokenDecoded = jwtDecode(sessionData.access_token);
+
     return tokenDecoded as AccessToken;
 }
 
@@ -56,5 +57,6 @@ export const isAllowedByRole = (routeRoles: Role[] = []) => {
 
     const { authorities } = getAccessTokenDecoded();
 
-    return routeRoles.some(role => authorities.includes(role));
+    return  routeRoles.some(role => authorities.includes(role));
+    //true
 }

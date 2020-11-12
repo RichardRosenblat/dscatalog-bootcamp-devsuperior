@@ -12,12 +12,12 @@ const Navbar = () => (
          <li>
             <NavLink to="/admin/categories" className="admin-nav-item">Minhas Categorias</NavLink>
          </li>
-         {//isAllowedByRole(['ROLE_ADMIN']) && (         
+         {isAllowedByRole(['ROLE_ADMIN']) && (         
             <li>
                 <NavLink to="/admin/users" className="admin-nav-item">Meus Usuários</NavLink>
             </li>
-         //)} 
-        }
+         )} 
+        
      </ul>
  </nav>
 );

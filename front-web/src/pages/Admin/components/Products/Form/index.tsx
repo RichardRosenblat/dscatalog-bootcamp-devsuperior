@@ -1,4 +1,3 @@
-import { isAllowedByRole } from "core/utils/auth";
 import { makePrivateRequest } from "core/utils/request";
 import React, { useState } from "react";
 import BaseForm from "../../BaseForm";

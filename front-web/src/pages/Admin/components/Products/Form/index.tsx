@@ -5,7 +5,6 @@ import BaseForm from "../../BaseForm";
 import { toast } from 'react-toastify';
 import './styles.scss';
 import { useHistory, useParams } from "react-router-dom";
-import { create } from "domain";
 
 type FormState = {
     name: string;

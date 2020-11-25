@@ -1,10 +1,12 @@
 import { makePrivateRequest, makeRequest } from "core/utils/request";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import Select from 'react-select';
 import BaseForm from "../../BaseForm";
 import { toast } from 'react-toastify';
 import './styles.scss';
 import { useHistory, useParams } from "react-router-dom";
+import { Category } from "core/types/Product";
 
 type FormState = {
     name: string;
@@ -23,6 +25,8 @@ const Form = () =>{
     const { register, handleSubmit, errors, setValue } = useForm<FormState>();
     const history = useHistory();
     const { productId } = useParams<ParamsType>();
+    const [isLoadingCategories, setIsLoadingCategories] = useState(false);
+    const [categories, setCategories] = useState<Category>();
     const isEditing = productId !== 'create'
     const formTitle = isEditing ? 'Editar produto' : 'Cadastrar um produto'
 
@@ -37,7 +41,14 @@ const Form = () =>{
                 
             })         
         }
-     }, [productId,isEditing, setValue]);
+    }, [productId,isEditing, setValue]);
+
+    useEffect(() => {
+        setIsLoadingCategories(true);
+        makeRequest({url: '/categories'})
+            .then(response => setCategories(response.data.content))
+            .finally(()=> setIsLoadingCategories(false));
+    }, []);
 
     const onSubmit = (data: FormState) => {
         makePrivateRequest({
@@ -79,6 +90,17 @@ const Form = () =>{
                                     </div>
                                 )}
                        </div>
+
+                        <div className="margin-bottom-30">
+                            <Select 
+                            options={categories} 
+                            getOptionLabel={(option:Category) => option.name}
+                            getOptionValue={(option:Category) => String(option.id)}
+                            placeholder="Categoria"
+                            isMulti 
+                            classNamePrefix="categories-select"/>
+                        </div>
+
                         <div className="margin-bottom-30">
                             <input 
                                 ref={register({ required: "Campo obrigatório" })}

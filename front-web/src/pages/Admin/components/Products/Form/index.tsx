@@ -1,6 +1,6 @@
 import { makePrivateRequest, makeRequest } from "core/utils/request";
 import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import Select from 'react-select';
 import BaseForm from "../../BaseForm";
 import { toast } from 'react-toastify';
@@ -13,6 +13,7 @@ type FormState = {
     price: string;
     description:string;
     imgUrl: string;
+    categories: Category[];
 }
 
 
@@ -22,11 +23,11 @@ type ParamsType = {
 
 
 const Form = () =>{
-    const { register, handleSubmit, errors, setValue } = useForm<FormState>();
+    const { register, handleSubmit, errors, setValue, control } = useForm<FormState>();
     const history = useHistory();
     const { productId } = useParams<ParamsType>();
     const [isLoadingCategories, setIsLoadingCategories] = useState(false);
-    const [categories, setCategories] = useState<Category>();
+    const [categories, setCategories] = useState<Category[]>();
     const isEditing = productId !== 'create'
     const formTitle = isEditing ? 'Editar produto' : 'Cadastrar um produto'
 
@@ -38,7 +39,7 @@ const Form = () =>{
                 setValue('price', response.data.price);
                 setValue('description', response.data.description);
                 setValue('imgUrl', response.data.imgUrl);
-                
+                setValue('categories', response.data.categories);
             })         
         }
     }, [productId,isEditing, setValue]);
@@ -92,13 +93,24 @@ const Form = () =>{
                        </div>
 
                         <div className="margin-bottom-30">
-                            <Select 
+                            <Controller 
+                            as={Select}
+                            name="categories"
+                            rules={{ required: true }}
+                            control={control}
+                            isLoading={isLoadingCategories}
                             options={categories} 
                             getOptionLabel={(option:Category) => option.name}
                             getOptionValue={(option:Category) => String(option.id)}
-                            placeholder="Categoria"
+                            placeholder="Categorias"
                             isMulti 
-                            classNamePrefix="categories-select"/>
+                            classNamePrefix="categories-select"
+                            />
+                            {errors.categories && (
+                                <div className="invalid-feedback d-block">
+                                    Campo obrigatório
+                                </div>
+                            )}
                         </div>
 
                         <div className="margin-bottom-30">

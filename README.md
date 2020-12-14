@@ -1,6 +1,8 @@
 # DSCatalog
 [![NPM](https://img.shields.io/npm/l/react)](https://github.com/RichardRosenblat/dscatalog-bootcamp-devsuperior/blob/main/LICENSE) 
 
+https://richard-dscatalog.netlify.app/
+
 # Sobre o projeto
 **Este projeto ainda está em desenvolvimento, então a infomação neste documento está sujeita a mudanças**
 

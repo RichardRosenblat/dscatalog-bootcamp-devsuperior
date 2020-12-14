@@ -14,10 +14,10 @@ const Admin = () => (
                     <Products/>
                 </PrivateRoute>
                 <PrivateRoute path="/admin/categories">
-                    <h1>categoreies</h1>
+                    <h1>categories</h1>
                 </PrivateRoute>
                 <PrivateRoute path="/admin/users" allowedRoutes={['ROLE_ADMIN']}>
-                    <h1>uisers</h1>
+                    <h1>users</h1>
                 </PrivateRoute>
             </Switch>
         </div>

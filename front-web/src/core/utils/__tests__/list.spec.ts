@@ -7,7 +7,7 @@ test('should generate a list', () => {
     // ACT
     const result = generateList(amount);
 
-    //ASSERT
+    // ASSERT
     expect(result).toEqual([0, 1, 2, 3, 4]);
 })
 
@@ -19,6 +19,6 @@ test('should generate an empty list when amount is zero', () => {
     // ACT
     const result = generateList(amount);
 
-    //ASSERT
+    // ASSERT
     expect(result).toEqual([]);
 })

@@ -63,7 +63,7 @@ test('should enable previous action and disable next action', ()=>{
     
 });
 
-test.only('should trigger onChange action', ()=>{
+test('should trigger onChange action', ()=>{
     const totalPages = 3;
     const activePage = 1;
     const onChange = jest.fn();

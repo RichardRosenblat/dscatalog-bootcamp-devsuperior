@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import Home from '..'
+import Home from '..';
 import { Router } from 'react-router-dom';
 import history from 'core/utils/history';
 

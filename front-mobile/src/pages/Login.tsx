@@ -1,13 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
+import {useNavigation} from "@react-navigation/native"
 import {View, Text, TextInput, Image, TouchableOpacity} from 'react-native'
 import { text, theme } from '../styles';
 import eyesOpened from '../assets/eyes-opened.png'
 import eyesClosed from '../assets/eyes-closed.png'
 import arrow from '../assets/arrow.png';
-import { login } from '../services/auth';
+import { isAuthenticated, login } from '../services/auth';
 
 const Login: React.FC = () => {
+    const navigation = useNavigation();
     const [hidePassword, setHidePassword] = useState(true);
+    const [userFetchData, setUserFetchData] = useState({});
     const [userInfo, setUserInfo] = useState({
         username: "",
         password: "",
@@ -15,7 +18,8 @@ const Login: React.FC = () => {
 
     async function handleLogin() {
        const data = await login(userInfo)
-       console.warn(data)
+       setUserFetchData(data);
+       navigation.navigate("Dashboard")
     }
 
     return(
@@ -60,7 +64,7 @@ const Login: React.FC = () => {
                 <TouchableOpacity 
                     style={theme.primaryButton} 
                     activeOpacity={0.8} 
-                    onPress={()=>handleLogin()}
+                    onPress={handleLogin}
                 >
                     <View style={theme.buttonTextContainer}>
                         <Text style={text.primaryText}>Fazer Login</Text>

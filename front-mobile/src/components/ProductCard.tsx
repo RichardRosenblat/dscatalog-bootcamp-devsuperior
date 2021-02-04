@@ -9,9 +9,10 @@ interface ProductProps {
     imgUrl: ImageSourcePropType;
     name: String;
     price: Number;
+    role?: string;
 }
 
-const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price}) => {
+const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role}) => {
     const navigation = useNavigation();
     
     return (
@@ -23,6 +24,18 @@ const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price}) => {
                     <Text style={text.currency}>R$</Text>
                     <Text style={text.productPrice}>{price}</Text>
                 </View>
+                {
+                    role === 'admin' && (
+                        <View style={theme.buttonContainer}>
+                            <TouchableOpacity style={theme.deleteBtn}>
+                                <Text style={text.deleteText}>Excluir</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={theme.editBtn}>
+                                <Text style={text.editText}>Editar</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
             </View>
         </TouchableOpacity>
     );

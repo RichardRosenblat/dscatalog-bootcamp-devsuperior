@@ -12,7 +12,7 @@ interface ProductProps {
 }
 
 import { SearchInput, ProductCard } from '../../../components'
-import { getProducts } from '../../../services'
+import { deleteProduct, getProducts } from '../../../services'
 import { colors, admin, text } from '../../../styles';
 const Products: React.FC<ProductProps> = (props) => {
     const [search, setSearch] = useState("");    
@@ -20,6 +20,12 @@ const Products: React.FC<ProductProps> = (props) => {
     const [loading, setLoading] = useState(false);
     
     const { setScreen } = props;
+
+    async function handleDelete(id:number) {
+        setLoading(true);
+        const res = await deleteProduct(id);
+        fillProducts();
+    }
 
     async function fillProducts() {
         setLoading(true);
@@ -52,9 +58,16 @@ const Products: React.FC<ProductProps> = (props) => {
             { loading ? (
                 <ActivityIndicator size="large" color={colors.mediumGray}/>
             ):
-            (data.map((product)=>(
-               <ProductCard { ...product } key={product.id} role='admin'/>
-            )))}
+            (data.map((product)=> { 
+                const {id} = product;
+                return (
+                <ProductCard 
+                { ...product } 
+                key={id} 
+                role='admin' 
+                handleDelete={handleDelete}/>
+                )})
+            )}
         </ScrollView>
     )
 }

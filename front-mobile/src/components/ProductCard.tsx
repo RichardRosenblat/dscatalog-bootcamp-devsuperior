@@ -6,28 +6,43 @@ import { useNavigation } from "@react-navigation/native";
 
 interface ProductProps {
     id: Number;
-    imgUrl: ImageSourcePropType;
+    imgUrl: string;
     name: String;
-    price: Number;
+    price: string;
     role?: string;
+    handleDelete: Function; 
 }
+import {TextInputMask} from 'react-native-masked-text'
 
-const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role}) => {
+const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role, handleDelete,}) => {
     const navigation = useNavigation();
     
     return (
-        <TouchableOpacity style={theme.productCard} onPress={() => navigation.navigate("ProductDetails", {id})}>
+        <TouchableOpacity style={theme.productCard} onPress={() => role ? " " : navigation.navigate("ProductDetails", {id})}>
             <Image source={{uri: imgUrl}} style={theme.productImg}/>
             <View style={theme.productDescription}>
                 <Text style={text.productName}>{name}</Text>
                 <View style={theme.priceContainer}>
                     <Text style={text.currency}>R$</Text>
-                    <Text style={text.productPrice}>{price}</Text>
+                    <TextInputMask 
+                        type={"money"}
+                        options={{
+                            precision: 2,
+                            separator: ",",
+                            delimiter: ".",
+                            unit: " ",
+                            suffixUnit: ""
+                        }}
+                        value={price}
+                        editable={false}
+                        style={text.productPrice}
+                    />
+                    {/* <Text style={text.productPrice}>{price}</Text> */}
                 </View>
                 {
                     role === 'admin' && (
                         <View style={theme.buttonContainer}>
-                            <TouchableOpacity style={theme.deleteBtn}>
+                            <TouchableOpacity style={theme.deleteBtn} onPress={() => handleDelete(id)}>
                                 <Text style={text.deleteText}>Excluir</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={theme.editBtn}>

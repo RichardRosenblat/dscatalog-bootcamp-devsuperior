@@ -381,6 +381,7 @@ const theme = StyleSheet.create({
     textArea:{
         width: "100%",
         height: 200,
+        maxWidth: "100%",
         borderWidth: 1,
         borderColor: colors.mediumGray,
         borderRadius: 10,

@@ -11,10 +11,11 @@ interface ProductProps {
     price: string;
     role?: string;
     handleDelete: Function; 
+    handleEdit: Function; 
 }
 import {TextInputMask} from 'react-native-masked-text'
 
-const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role, handleDelete,}) => {
+const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role, handleDelete, handleEdit}) => {
     const navigation = useNavigation();
     
     return (
@@ -45,7 +46,7 @@ const ProductCard: React.FC<ProductProps> = ({ id, imgUrl, name, price, role, ha
                             <TouchableOpacity style={theme.deleteBtn} onPress={() => handleDelete(id)}>
                                 <Text style={text.deleteText}>Excluir</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={theme.editBtn}>
+                            <TouchableOpacity style={theme.editBtn} onPress={()=>handleEdit(id)}>
                                 <Text style={text.editText}>Editar</Text>
                             </TouchableOpacity>
                         </View>
